@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Brain, MessageCircle, BarChart3, BookOpen, Menu } from "lucide-react";
+import { Brain, MessageCircle, BarChart3, BookOpen, Menu, LogOut, User } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 interface NavigationProps {
   activeSection: string;
@@ -9,6 +11,8 @@ interface NavigationProps {
 
 const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Brain },
@@ -30,7 +34,7 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => {
+            {user && navItems.map((item) => {
               const Icon = item.icon;
               return (
                 <Button
@@ -44,6 +48,25 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
                 </Button>
               );
             })}
+            
+            {user && (
+              <div className="flex items-center gap-4 ml-4">
+                <span className="text-sm text-muted-foreground">
+                  Welcome, {user.user_metadata?.display_name || user.email}
+                </span>
+                <Button variant="ghost" size="sm" onClick={() => signOut()}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
+                </Button>
+              </div>
+            )}
+
+            {!user && (
+              <Button variant="default" size="sm" onClick={() => navigate('/auth')}>
+                <User className="h-4 w-4 mr-2" />
+                Sign In
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -60,7 +83,7 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 space-y-2">
-            {navItems.map((item) => {
+            {user && navItems.map((item) => {
               const Icon = item.icon;
               return (
                 <Button
@@ -77,6 +100,39 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
                 </Button>
               );
             })}
+            
+            {user && (
+              <div className="space-y-2 pt-2 border-t">
+                <div className="px-3 py-2 text-sm text-muted-foreground">
+                  Welcome, {user.user_metadata?.display_name || user.email}
+                </div>
+                <Button 
+                  variant="ghost" 
+                  className="w-full flex items-center justify-start space-x-2"
+                  onClick={() => {
+                    signOut();
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span>Sign Out</span>
+                </Button>
+              </div>
+            )}
+
+            {!user && (
+              <Button 
+                variant="default" 
+                className="w-full flex items-center justify-start space-x-2"
+                onClick={() => {
+                  navigate('/auth');
+                  setIsMenuOpen(false);
+                }}
+              >
+                <User className="h-4 w-4" />
+                <span>Sign In</span>
+              </Button>
+            )}
           </div>
         )}
       </div>
