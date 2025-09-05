@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Brain, MessageCircle, BarChart3, BookOpen, Menu, LogOut, User } from "lucide-react";
+import { Brain, MessageCircle, BarChart3, BookOpen, Wind, Menu, LogOut, User } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +18,7 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
     { id: 'home', label: 'Home', icon: Brain },
     { id: 'chat', label: 'AI Chat', icon: MessageCircle },
     { id: 'mood', label: 'Mood Tracker', icon: BarChart3 },
+    { id: 'breathing', label: 'Breathing', icon: Wind },
     { id: 'journal', label: 'Journal', icon: BookOpen },
   ];
 
