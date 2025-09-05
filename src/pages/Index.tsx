@@ -5,6 +5,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import ChatInterface from "@/components/ChatInterface";
 import MoodTracker from "@/components/MoodTracker";
+import BreathingExercises from "@/components/BreathingExercises";
 import Journal from "@/components/Journal";
 
 const Index = () => {
@@ -36,6 +37,8 @@ const Index = () => {
         return <ChatInterface />;
       case 'mood':
         return <MoodTracker />;
+      case 'breathing':
+        return <BreathingExercises />;
       case 'journal':
         return <Journal />;
       default:
