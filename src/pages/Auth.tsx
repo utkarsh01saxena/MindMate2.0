@@ -69,79 +69,133 @@ export default function Auth() {
     }
     setLoading(false);
   };
-  return <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+  return <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Floating background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-calm-blue-light rounded-full blur-xl opacity-60 animate-float"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 bg-warm-purple-light rounded-full blur-lg opacity-50 animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-calm-green-light rounded-full blur-lg opacity-40 animate-float" style={{ animationDelay: '4s' }}></div>
+      </div>
+
+      <div className="w-full max-w-md relative z-10 animate-gentle-fade">
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Heart className="h-8 w-8 text-primary animate-pulse mx-[2px]" />
-            <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Mind-Mate
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="relative">
+              <Heart className="h-10 w-10 text-primary animate-pulse" />
+              <div className="absolute inset-0 h-10 w-10 text-primary opacity-20 animate-ping"></div>
+            </div>
+            <h1 className="text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent tracking-tight">
+              MindMate
             </h1>
           </div>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-lg font-medium">
             Your mental wellbeing companion
           </p>
+          <div className="w-16 h-1 bg-gradient-mood mx-auto mt-4 rounded-full"></div>
         </div>
 
-        <Card className="border-soft shadow-elegant">
-          <CardHeader className="text-center">
-            <CardTitle>Welcome to MindMate!</CardTitle>
-            <CardDescription>
+        <Card className="backdrop-blur-sm bg-card/95 border-0 shadow-glow transition-gentle hover:shadow-soft">
+          <CardHeader className="text-center pb-2">
+            <CardTitle className="text-2xl font-bold bg-gradient-mood bg-clip-text text-transparent">Welcome to MindMate!</CardTitle>
+            <CardDescription className="text-base mt-2 text-muted-foreground/80">
               Sign in to your account or create a new one
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             <Tabs defaultValue="signin" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="signin">Sign In</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-2 bg-muted/50 p-1 h-12 rounded-lg">
+                <TabsTrigger value="signin" className="transition-gentle data-[state=active]:bg-gradient-card data-[state=active]:shadow-soft">Sign In</TabsTrigger>
+                <TabsTrigger value="signup" className="transition-gentle data-[state=active]:bg-gradient-card data-[state=active]:shadow-soft">Sign Up</TabsTrigger>
               </TabsList>
               
-              <TabsContent value="signin" className="space-y-4">
-                <form onSubmit={handleSignIn} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signin-email">Email</Label>
-                    <Input id="signin-email" name="email" type="email" placeholder="your@email.com" required />
+              <TabsContent value="signin" className="space-y-6 mt-6">
+                <form onSubmit={handleSignIn} className="space-y-5">
+                  <div className="space-y-3">
+                    <Label htmlFor="signin-email" className="text-sm font-semibold text-foreground">Email Address</Label>
+                    <Input 
+                      id="signin-email" 
+                      name="email" 
+                      type="email" 
+                      placeholder="your@email.com" 
+                      required 
+                      className="h-12 transition-gentle focus:ring-calm-blue focus:border-calm-blue border-muted-foreground/20"
+                    />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signin-password">Password</Label>
-                    <Input id="signin-password" name="password" type="password" placeholder="Your password" required />
+                  <div className="space-y-3">
+                    <Label htmlFor="signin-password" className="text-sm font-semibold text-foreground">Password</Label>
+                    <Input 
+                      id="signin-password" 
+                      name="password" 
+                      type="password" 
+                      placeholder="Your password" 
+                      required 
+                      className="h-12 transition-gentle focus:ring-calm-blue focus:border-calm-blue border-muted-foreground/20"
+                    />
                   </div>
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button 
+                    type="submit" 
+                    className="w-full h-12 bg-gradient-mood hover:bg-gradient-hero transition-bounce text-white font-semibold shadow-soft hover:shadow-glow" 
+                    disabled={loading}
+                  >
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Sign In
                   </Button>
                 </form>
               </TabsContent>
               
-              <TabsContent value="signup" className="space-y-4">
-                <form onSubmit={handleSignUp} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-name">Display Name</Label>
-                    <Input id="signup-name" name="displayName" type="text" placeholder="Your name" />
+              <TabsContent value="signup" className="space-y-6 mt-6">
+                <form onSubmit={handleSignUp} className="space-y-5">
+                  <div className="space-y-3">
+                    <Label htmlFor="signup-name" className="text-sm font-semibold text-foreground">Display Name</Label>
+                    <Input 
+                      id="signup-name" 
+                      name="displayName" 
+                      type="text" 
+                      placeholder="Your name" 
+                      className="h-12 transition-gentle focus:ring-calm-blue focus:border-calm-blue border-muted-foreground/20"
+                    />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
-                    <Input id="signup-email" name="email" type="email" placeholder="your@email.com" required />
+                  <div className="space-y-3">
+                    <Label htmlFor="signup-email" className="text-sm font-semibold text-foreground">Email Address</Label>
+                    <Input 
+                      id="signup-email" 
+                      name="email" 
+                      type="email" 
+                      placeholder="your@email.com" 
+                      required 
+                      className="h-12 transition-gentle focus:ring-calm-blue focus:border-calm-blue border-muted-foreground/20"
+                    />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
-                    <Input id="signup-password" name="password" type="password" placeholder="Create a password" required minLength={6} />
+                  <div className="space-y-3">
+                    <Label htmlFor="signup-password" className="text-sm font-semibold text-foreground">Password</Label>
+                    <Input 
+                      id="signup-password" 
+                      name="password" 
+                      type="password" 
+                      placeholder="Create a password (min. 6 characters)" 
+                      required 
+                      minLength={6} 
+                      className="h-12 transition-gentle focus:ring-calm-blue focus:border-calm-blue border-muted-foreground/20"
+                    />
                   </div>
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button 
+                    type="submit" 
+                    className="w-full h-12 bg-gradient-mood hover:bg-gradient-hero transition-bounce text-white font-semibold shadow-soft hover:shadow-glow" 
+                    disabled={loading}
+                  >
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Sign Up
+                    Create Account
                   </Button>
                 </form>
               </TabsContent>
             </Tabs>
 
-            {error && <Alert className="mt-4 border-destructive/50 text-destructive">
-                <AlertDescription>{error}</AlertDescription>
+            {error && <Alert className="mt-6 border-destructive/50 bg-destructive/5 text-destructive animate-gentle-fade">
+                <AlertDescription className="font-medium">{error}</AlertDescription>
               </Alert>}
 
-            {message && <Alert className="mt-4 border-green-500/50 text-green-700">
-                <AlertDescription>{message}</AlertDescription>
+            {message && <Alert className="mt-6 border-calm-green/50 bg-calm-green-light/30 text-calm-green animate-gentle-fade">
+                <AlertDescription className="font-medium">{message}</AlertDescription>
               </Alert>}
           </CardContent>
         </Card>
