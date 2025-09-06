@@ -84,7 +84,7 @@ export default function Auth() {
               <Heart className="h-10 w-10 text-primary animate-pulse" />
               <div className="absolute inset-0 h-10 w-10 text-primary opacity-20 animate-ping"></div>
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent tracking-tight">
+            <h1 className="text-4xl font-bold text-white tracking-tight drop-shadow-lg">
               MindMate
             </h1>
           </div>
