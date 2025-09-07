@@ -145,13 +145,7 @@ If you need help or have questions:
 - Check our [documentation](docs/)
 - Join our community discussions
 
-## 🚧 Roadmap
 
-- [ ] **Mobile App**: Native iOS and Android applications
-- [ ] **Therapist Connect**: Option to connect with licensed professionals
-- [ ] **Group Support**: Community features and peer support groups
-- [ ] **Advanced Analytics**: ML-powered insights and recommendations
-- [ ] **Integration APIs**: Connect with fitness trackers and health apps
 
 ---
 
