@@ -2,14 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import Navigation from "@/components/Navigation";
-import Hero from "@/components/Hero";
 import ChatInterface from "@/components/ChatInterface";
-import MoodTracker from "@/components/MoodTracker";
-import BreathingExercises from "@/components/BreathingExercises";
-import Journal from "@/components/Journal";
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('chat');
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -32,18 +28,7 @@ const Index = () => {
   }
 
   const renderSection = () => {
-    switch (activeSection) {
-      case 'chat':
-        return <ChatInterface />;
-      case 'mood':
-        return <MoodTracker />;
-      case 'breathing':
-        return <BreathingExercises />;
-      case 'journal':
-        return <Journal />;
-      default:
-        return <Hero onGetStarted={() => setActiveSection('chat')} />;
-    }
+    return <ChatInterface />;
   };
 
   return (
