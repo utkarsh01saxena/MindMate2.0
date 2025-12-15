@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import Navigation from "@/components/Navigation";
 import ChatInterface from "@/components/ChatInterface";
+import RelaxingActivities from "@/components/RelaxingActivities";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('chat');
@@ -40,6 +41,7 @@ const Index = () => {
       
       <main className="container mx-auto px-6 py-8">
         {renderSection()}
+        <RelaxingActivities />
       </main>
     </div>
   );
