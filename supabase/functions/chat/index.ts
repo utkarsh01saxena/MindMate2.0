@@ -21,35 +21,36 @@ serve(async (req) => {
 
     console.log('Received message:', message);
 
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      throw new Error('LOVABLE_API_KEY is not configured');
+    const geminiApiKey = Deno.env.get('GEMINI_API_KEY');
+    if (!geminiApiKey) {
+      throw new Error('GEMINI_API_KEY is not configured');
     }
 
-    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-flash',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are Mind-Mate, a compassionate AI wellness assistant. You help users with mental health support, stress management, mindfulness, and emotional well-being. Be empathetic, supportive, and provide practical advice. Keep responses conversational and helpful.'
-          },
-          {
-            role: 'user',
-            content: message
-          }
-        ],
+        contents: [{
+          parts: [{
+            text: `You are Mind-Mate, a compassionate AI wellness assistant. You help users with mental health support, stress management, mindfulness, and emotional well-being. Be empathetic, supportive, and provide practical advice. Keep responses conversational and helpful.
+
+User message: ${message}`
+          }]
+        }],
+        generationConfig: {
+          temperature: 0.7,
+          topK: 40,
+          topP: 0.95,
+          maxOutputTokens: 1024,
+        },
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('AI Gateway error:', response.status, errorText);
+      console.error('Gemini API error:', response.status, errorText);
       
       if (response.status === 429) {
         return new Response(JSON.stringify({ 
@@ -61,23 +62,13 @@ serve(async (req) => {
         });
       }
       
-      if (response.status === 402) {
-        return new Response(JSON.stringify({ 
-          error: 'Payment required',
-          reply: "The AI service requires additional credits. Please check your workspace settings."
-        }), {
-          status: 402,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        });
-      }
-      
-      throw new Error(`AI Gateway error: ${response.status}`);
+      throw new Error(`Gemini API error: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log('AI Gateway response:', data);
+    console.log('Gemini response:', data);
 
-    const reply = data.choices?.[0]?.message?.content || "I'm sorry, I couldn't generate a response right now. Please try again.";
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't generate a response right now. Please try again.";
 
     return new Response(JSON.stringify({ reply }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
