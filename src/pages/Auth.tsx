@@ -77,7 +77,7 @@ export default function Auth() {
             🧪 Test Credentials
           </p>
           <div className="space-y-1 text-muted-foreground/80">
-            <p><span className="font-medium text-foreground/70">Email:</span> test@mindmate.com</p>
+            <p><span className="font-medium text-foreground/70">Email:</span> test@gmail.com</p>
             <p><span className="font-medium text-foreground/70">Password:</span> test123</p>
           </div>
         </div>
