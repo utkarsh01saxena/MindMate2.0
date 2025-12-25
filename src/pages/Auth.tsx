@@ -70,19 +70,6 @@ export default function Auth() {
     setLoading(false);
   };
   return <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Test credentials section */}
-      <div className="absolute bottom-4 right-4 z-20">
-        <div className="backdrop-blur-sm bg-card/80 border border-border/50 rounded-lg p-3 text-xs shadow-soft max-w-[200px]">
-          <p className="font-semibold text-muted-foreground mb-2 flex items-center gap-1">
-            🧪 Test Credentials
-          </p>
-          <div className="space-y-1 text-muted-foreground/80">
-            <p><span className="font-medium text-foreground/70">Email:</span> test@gmail.com</p>
-            <p><span className="font-medium text-foreground/70">Password:</span> test123</p>
-          </div>
-        </div>
-      </div>
-
       {/* Floating background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-32 h-32 bg-calm-blue-light rounded-full blur-xl opacity-60 animate-float"></div>
