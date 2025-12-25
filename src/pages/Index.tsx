@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import Navigation from "@/components/Navigation";
+import Hero from "@/components/Hero";
 import ChatInterface from "@/components/ChatInterface";
-import RelaxingActivities from "@/components/RelaxingActivities";
+import MoodTracker from "@/components/MoodTracker";
+import BreathingExercises from "@/components/BreathingExercises";
+import Journal from "@/components/Journal";
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState('chat');
+  const [activeSection, setActiveSection] = useState('home');
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -29,7 +32,18 @@ const Index = () => {
   }
 
   const renderSection = () => {
-    return <ChatInterface />;
+    switch (activeSection) {
+      case 'chat':
+        return <ChatInterface />;
+      case 'mood':
+        return <MoodTracker />;
+      case 'breathing':
+        return <BreathingExercises />;
+      case 'journal':
+        return <Journal />;
+      default:
+        return <Hero onGetStarted={() => setActiveSection('chat')} />;
+    }
   };
 
   return (
@@ -41,7 +55,6 @@ const Index = () => {
       
       <main className="container mx-auto px-6 py-8">
         {renderSection()}
-        <RelaxingActivities />
       </main>
     </div>
   );
