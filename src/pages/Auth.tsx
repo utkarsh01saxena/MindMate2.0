@@ -190,6 +190,27 @@ export default function Auth() {
               </TabsContent>
             </Tabs>
 
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-muted-foreground/20"></div>
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-card px-2 text-muted-foreground">Or</span>
+              </div>
+            </div>
+
+            <Button 
+              type="button"
+              variant="outline"
+              className="w-full h-12 border-muted-foreground/30 hover:bg-muted/50 transition-gentle font-medium"
+              onClick={() => navigate('/')}
+            >
+              Continue as Guest (Demo Mode)
+            </Button>
+            <p className="text-xs text-muted-foreground text-center mt-2">
+              Try the app without creating an account. Data won't be saved.
+            </p>
+
             {error && <Alert className="mt-6 border-destructive/50 bg-destructive/5 text-destructive animate-gentle-fade">
                 <AlertDescription className="font-medium">{error}</AlertDescription>
               </Alert>}
