@@ -12,10 +12,12 @@ export default function Auth() {
   const {
     user,
     signIn,
-    signUp
+    signUp,
+    signInAsGuest
   } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [guestLoading, setGuestLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -203,8 +205,18 @@ export default function Auth() {
               type="button"
               variant="outline"
               className="w-full h-12 border-muted-foreground/30 hover:bg-muted/50 transition-gentle font-medium"
-              onClick={() => navigate('/')}
+              disabled={guestLoading}
+              onClick={async () => {
+                setGuestLoading(true);
+                setError(null);
+                const { error } = await signInAsGuest();
+                if (error) {
+                  setError('Unable to start guest session. Please try again.');
+                }
+                setGuestLoading(false);
+              }}
             >
+              {guestLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Continue as Guest (Demo Mode)
             </Button>
             <p className="text-xs text-muted-foreground text-center mt-2">
