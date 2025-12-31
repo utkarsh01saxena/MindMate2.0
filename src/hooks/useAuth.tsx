@@ -6,8 +6,10 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  isGuest: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signUp: (email: string, password: string, displayName?: string) => Promise<{ error: any }>;
+  signInAsGuest: () => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
 
@@ -62,16 +64,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { error };
   };
 
+  const signInAsGuest = async () => {
+    const { error } = await supabase.auth.signInAnonymously();
+    return { error };
+  };
+
   const signOut = async () => {
     await supabase.auth.signOut();
   };
+
+  const isGuest = user?.is_anonymous ?? false;
 
   const value = {
     user,
     session,
     loading,
+    isGuest,
     signIn,
     signUp,
+    signInAsGuest,
     signOut,
   };
 
