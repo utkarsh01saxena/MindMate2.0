@@ -58,7 +58,7 @@ const BreathingExercises = () => {
   const [currentPhase, setCurrentPhase] = useState<Phase>("inhale");
   const [timeLeft, setTimeLeft] = useState(selectedPattern.inhale);
   const [totalCycles, setTotalCycles] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const { toast } = useToast();
 
   const getPhaseDisplay = (phase: Phase) => {
