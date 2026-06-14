@@ -124,27 +124,6 @@ supabase/
 - **No Data Tracking**: We don't track or sell your personal information
 - **GDPR Compliant**: Built with privacy regulations in mind
 
-## 🤝 Contributing
-
-We welcome contributions! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-### Development Guidelines
-- Follow TypeScript best practices
-- Use semantic commit messages
-- Add tests for new features
-- Ensure accessibility compliance
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-If you need help or have questions:
-- Open an issue on GitHub
-- Check our [documentation](docs/)
-- Join our community discussions
-
 
 
 ---
