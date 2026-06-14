@@ -132,6 +132,5 @@ supabase/
 
 **Made with ❤️ for mental wellness**
 
-[Demo](https://your-demo-url.com) • [Documentation](docs/) • [Report Bug](issues/) • [Request Feature](issues/)
 
 </div>
